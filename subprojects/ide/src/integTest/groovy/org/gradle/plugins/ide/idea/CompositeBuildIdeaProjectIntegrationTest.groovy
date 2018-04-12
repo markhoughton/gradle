@@ -29,7 +29,6 @@ import spock.lang.Issue
  */
 
 @Issue("https://github.com/gradle/gradle-private/issues/1145")
-@Ignore
 class CompositeBuildIdeaProjectIntegrationTest extends AbstractIntegrationSpec {
     BuildTestFile buildA
     BuildTestFile buildB
