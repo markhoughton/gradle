@@ -143,4 +143,22 @@ class SigningTasksIntegrationSpec extends SigningIntegrationSpec {
         and:
         file("build", "libs", "sign-1.0.jar.asc").text
     }
+
+    @IgnoreIf({GradleContextualExecuter.parallel})
+    def "emits deprecation warning when trying to overwrite signature file"() {
+        given:
+        buildFile << """
+            signing {
+                sign jar
+            }
+            signJar.singleSignature.file = file('custom-signature.txt')
+        """
+
+        when:
+        executer.expectDeprecationWarning()
+        run()
+
+        then:
+        output.contains('Using Signature.setFile() has been deprecated')
+    }
 }
